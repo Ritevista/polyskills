@@ -1,0 +1,27 @@
+# polyskills — Cline Adapter
+
+## Skill Routing
+
+1. Load `skills/INDEX.md` first — one line per skill, lightweight
+2. Match the user's request against the Trigger column
+3. Load `skills/<matched>/SKILL.md` fully and follow its Process steps
+4. Apply referenced `common-skills/` patterns
+
+## Agent Routing
+
+Cline spawns sub-agents inline via `use_subagents`. Available workers:
+
+| Agent | When to use |
+|-------|------------|
+| researcher | deep research in parallel, evidence gathering |
+| critic | adversarial review of a plan or doc |
+| sme | "SME [domain]" — validate domain assumption |
+| scout | idea triage before committing to a repo |
+| distiller | extract structure from transcripts/notes/drafts |
+
+Brief each sub-agent with: task, context summary, output format, constraints.
+Do NOT pass the full conversation — summarize what it needs.
+
+## Key Rule
+
+Load `skills/INDEX.md` first. Never load all SKILL.md files speculatively.

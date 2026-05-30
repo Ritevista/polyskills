@@ -1,0 +1,23 @@
+{
+  "skill": "synthesis",
+  "should_trigger": [
+    "I have three sessions worth of notes and I need to figure out what skill is actually missing",
+    "These prompts keep showing the same pattern — what's the common gap signal?",
+    "My session transcript and some error logs both point at something — what's the actual problem?",
+    "I have notes from two different agents and they contradict each other — help me figure out what's true",
+    "Distil these five chat excerpts into what phoenix should build next",
+    "These bug reports all seem related — what's the common root cause?",
+    "I keep seeing the same workaround — what does that signal about what's absent from the library?"
+  ],
+  "should_not_trigger": [
+    "Search the web for best practices on skill writing",
+    "Create a new skill for session handoff",
+    "Summarise this single document for me",
+    "What does ADR-005 say about ceilings?",
+    "Run validate.py and tell me what's broken",
+    "Write the handoff notes for this session",
+    "I have one clear requirement: add a skill for planning. Do it.",
+    "Fetch the comments from PR #42 on GitHub",
+    "Summarise the changes in this merge request"
+  ]
+}

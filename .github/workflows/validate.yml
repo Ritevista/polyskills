@@ -1,0 +1,51 @@
+name: Validate Library
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'skills/**'
+      - 'agents/**'
+      - 'sub-agents/**'
+      - 'common-skills/**'
+      - 'scripts/validate.py'
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    name: Validate skill and agent definitions
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip3 install pyyaml
+
+      - name: Run library validator
+        run: python scripts/validate.py
+
+      - name: Check skill count ceiling
+        run: |
+          SKILL_COUNT=$(find skills -maxdepth 1 -mindepth 1 -type d | wc -l)
+          echo "Skill count: $SKILL_COUNT / 10"
+          if [ "$SKILL_COUNT" -gt 10 ]; then
+            echo "ERROR: Skills ceiling exceeded ($SKILL_COUNT > 10). Update ADR-005 if intentional."
+            exit 1
+          fi
+
+      - name: Check agent count ceiling
+        run: |
+          AGENT_COUNT=$(find agents -maxdepth 1 -mindepth 1 -type d | wc -l)
+          echo "Agent count: $AGENT_COUNT / 6"
+          if [ "$AGENT_COUNT" -gt 6 ]; then
+            echo "ERROR: Agent ceiling exceeded ($AGENT_COUNT > 6). Update ADR-005 if intentional."
+            exit 1
+          fi

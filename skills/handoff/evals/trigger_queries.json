@@ -1,0 +1,21 @@
+{
+  "skill": "handoff",
+  "should_trigger": [
+    "I'm about to lose context — capture where we are so I can continue later",
+    "Write a handoff for this session, we didn't finish the synthesis skill",
+    "I need to pass this half-done work to another agent",
+    "Session is ending and the SKILL.md files aren't written yet — capture state",
+    "Context window is almost full, document what's done and what's next",
+    "I'm pausing this task and will resume tomorrow — write the resumption notes",
+    "Transfer everything I need to continue this from a fresh session"
+  ],
+  "should_not_trigger": [
+    "Create a final summary of the completed project",
+    "Write the README for this library",
+    "What skills did we build in this session?",
+    "Synthesise these session notes into a gap signal",
+    "We finished everything — commit the changes",
+    "Explain what phoenix does",
+    "Add a new skill for planning tasks"
+  ]
+}
