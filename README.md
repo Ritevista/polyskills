@@ -1,121 +1,93 @@
 # polyskills
 
-**Lean, principled, multi-agent skill library. Write skills once — use across Claude Code, Codex, Kiro, Gemini, OpenClaw, Cursor, Windsurf, and more.**
+**A lean, principled multi-agent skill library. Write skills once, deploy across Claude Code, Codex, Gemini, Cursor, Kiro, Cline, and Amp. Six-layer skill format with progressive disclosure — agents load only what they need. Ships with a self-extending library agent (phoenix) that validates, indexes, and commits on approval.**
 
 ---
 
-## Architecture
+## How It Works
 
 ```
-┌──────────────────────────────────────────────────────────┐
-│  Layer 3: Adapters       (thin, per-agent, no logic)      │
-│  CLAUDE.md / AGENTS.md / .kiro/ / .gemini/ / .cursor/     │
-├──────────────────────────────────────────────────────────┤
-│  Layer 2: Skill Library  (portable Markdown, ~10 skills)  │
-│  skills/INDEX.md  →  skills/<name>/SKILL.md               │
-├──────────────────────────────────────────────────────────┤
-│  Layer 1: Foundation     (shared patterns + MCP wiring)   │
-│  common-skills/   mcp-servers/   templates/               │
-└──────────────────────────────────────────────────────────┘
+Request arrives
+    │
+    ▼
+Load skills/INDEX.md → match? → load SKILL.md → execute
+    │
+    └─ no match → load agents/INDEX.md → spawn worker agent
 ```
 
-Skills are **reasoning patterns** — they tell the agent how to think.
-MCPs are **capabilities** — they give the agent access to systems.
-Never conflate the two.
+Agents load `skills/INDEX.md` first (one line per skill). The full `SKILL.md` is loaded only when a skill matches. Context cost is O(1) per invocation, not O(n).
 
 ---
 
-## Supported Agents
+## Skills (2 of 10)
 
-| Agent | Adapter | Status |
-|-------|---------|--------|
-| Claude Code | `CLAUDE.md` → `~/.claude/CLAUDE.md` | ✅ |
-| OpenAI Codex | `AGENTS.md` → `~/.codex/AGENTS.md` | ✅ |
-| AWS Kiro | `.kiro/specs/polyskills.md` | ✅ |
-| Gemini CLI / Code Assist | `.gemini/instructions.md` | ✅ |
-| Cursor | `.cursor/rules.md` | ✅ |
-| Windsurf | `.windsurfrules` | ✅ |
-| OpenClaw | `adapters/openclaw/` | ✅ |
-| Cline | `.clinerules` | ✅ |
-| Amp | `adapters/amp/USAGE.md` | ✅ (manual) |
+| Skill | Trigger | SKILL.md |
+|-------|---------|----------|
+| synthesis | Messy multi-source input (notes, docs, feedback) needs consolidating into a clear finding | [skills/synthesis/SKILL.md](skills/synthesis/SKILL.md) |
+| handoff | Session ending with unfinished work; passing state to next session or agent | [skills/handoff/SKILL.md](skills/handoff/SKILL.md) |
+
+Skills are added via phoenix as real use cases emerge — not speculatively. Ceiling: 10.
 
 ---
 
-## Agents (6, ceiling)
+## Agents (1 of 6)
 
-| Agent | When to Spawn | MCP |
-|-------|--------------|-----|
-| [researcher](agents/researcher/AGENT.md) | deep investigation in parallel, evidence gathering | web-search |
-| [critic](agents/critic/AGENT.md) | adversarial review, stress-test a plan/doc | — |
-| [sme](agents/sme/AGENT.md) | "SME [domain]" — validate domain assumption | — |
-| [scout](agents/scout/AGENT.md) | idea triage before committing to a repo | optional |
-| [distiller](agents/distiller/AGENT.md) | extract structure from transcripts, notes, raw drafts | — |
-| [phoenix](agents/phoenix/AGENT.md) | identify library gaps, propose new skill/agent/sub-agent | — |
+| Agent | When to spawn | AGENT.md |
+|-------|--------------|----------|
+| phoenix | Add/fix/sync anything in the polyskills library | [agents/phoenix/AGENT.md](agents/phoenix/AGENT.md) |
 
-## Sub-Agents (4, no ceiling)
-
-Atomic workers spawned BY agents — not by the user directly.
-
-| Sub-Agent | Spawned By | Task |
-|-----------|-----------|------|
-| [web-searcher](sub-agents/web-searcher/AGENT.md) | researcher, scout | single query → results |
-| [doc-reader](sub-agents/doc-reader/AGENT.md) | researcher, distiller | single source → extract |
-| [assumption-checker](sub-agents/assumption-checker/AGENT.md) | critic | single assumption → counter-argument |
-| [section-extractor](sub-agents/section-extractor/AGENT.md) | distiller | single section → structured list |
-
-Agent + sub-agent files deployed to `.claude/agents/`, `.cursor/agents/`, `.gemini/agents/` (flat — Claude Code/Cursor/Gemini don't distinguish tiers). Kiro uses a DAG adapter. Cline and Amp spawn inline.
+Phoenix owns the full maintenance loop: reads STEERING.md → produces definitions → writes files → runs validate.py → shows diff → commits on approval. It also updates its own definition when its job changes.
 
 ---
 
-## Skills (10)
+## Supported Platforms
 
-| Skill | Trigger | MCP Needed |
-|-------|---------|-----------|
-| [requirement-study](skills/requirement-study/SKILL.md) | analyze/write/validate requirements, PRD, feature spec | — |
-| [implementation-sketch](skills/implementation-sketch/SKILL.md) | implementation plan, task breakdown from spec | — |
-| [systems-architect](skills/systems-architect/SKILL.md) | system design, architecture decision, trade-off analysis | — |
-| [research-analyst](skills/research-analyst/SKILL.md) | deep research, evidence synthesis, competitive analysis | Web Search |
-| [qa-validator](skills/qa-validator/SKILL.md) | test strategy, acceptance criteria, pre-delivery validation | — |
-| [security-guardian](skills/security-guardian/SKILL.md) | threat model, security review, vulnerability analysis | — |
-| [domain-expert](skills/domain-expert/SKILL.md) | "SME [domain]" — parameterized deep domain expertise | — |
-| [repo-bootstrap](skills/repo-bootstrap/SKILL.md) | scaffold new repo, CI/CD setup, project structure | GitHub |
-| [poc-spike](skills/poc-spike/SKILL.md) | proof-of-concept, de-risk technical unknown | — |
-| [context-handoff](skills/context-handoff/SKILL.md) | session handoff, context pack, cross-agent state transfer | — |
+| Platform | Adapter location |
+|----------|-----------------|
+| Claude Code | `.claude/agents/` |
+| OpenAI Codex | `AGENTS.md` |
+| Gemini CLI | `.gemini/agents/` |
+| Cursor | `.cursor/agents/` |
+| Kiro | `adapters/kiro/` |
+| Cline | `.clinerules` |
+| Amp | `adapters/amp/USAGE.md` |
 
 ---
 
 ## Quick Start
 
 ```bash
-# Clone
-git clone https://github.com/<you>/polyskills.git
+git clone https://github.com/Ritevista/polyskills.git
 cd polyskills
-
-# Global install (copies adapters + skill library to agent config dirs)
-python3 scripts/polyskillsctl.py install-global
-
-# Or: symlink for live development
-python3 scripts/polyskillsctl.py install-global --link
+python3 scripts/validate.py   # verify everything is clean
 ```
 
-After install, ask any supported agent: **"What skills do you have?"**
+Copy or symlink the adapter for your platform into its config directory. Ask your agent: **"What skills do you have?"**
 
 ---
 
-## Context Efficiency Protocol
+## Repo Structure
 
-Agents load `skills/INDEX.md` first (one file, one line per skill).
-Full `SKILL.md` is loaded only for the matched skill.
-This keeps context usage O(1) per invocation instead of O(n).
-
----
-
-## MCP Wiring
-
-Skills are reasoning only. Capabilities come from MCPs.
-See [`mcp-servers/README.md`](mcp-servers/README.md) for which MCPs to wire and how.
-
-Recommended: Gmail, GitHub, Google Calendar, filesystem, web search.
+```
+polyskills/
+├── STEERING.md                  # read first — current state and routing
+├── skills/
+│   ├── INDEX.md                 # agents load this first
+│   ├── synthesis/SKILL.md
+│   └── handoff/SKILL.md
+├── agents/
+│   ├── INDEX.md
+│   └── phoenix/AGENT.md
+├── sub-agents/INDEX.md          # none yet
+├── common-skills/               # confidence-rating, output-formatting, quality-checklist
+├── templates/                   # SKILL_TEMPLATE, AGENT_TEMPLATE, SUB_AGENT_TEMPLATE
+├── docs/
+│   ├── adrs/                    # 8 ADRs covering architecture decisions
+│   ├── guides/                  # skill-writing-guide, steering-guide
+│   └── specs/                   # skill and agent format specs
+├── scripts/validate.py          # CI validator
+└── adapters/                    # platform-specific adapter sources
+```
 
 ---
 
@@ -125,40 +97,18 @@ Recommended: Gmail, GitHub, Google Calendar, filesystem, web search.
 2. **Adapters are thin** — pointers only, zero skill logic
 3. **MCPs are capabilities** — never put tool access inside a skill
 4. **Load lazily** — INDEX.md first, full SKILL.md only on match
-5. **10 skills is a ceiling, not a floor** — prune before you add
+5. **10 skills is a ceiling, not a floor** — earn your place or get pruned
 
 ---
 
-## Repo Structure
+## Validation
 
+```bash
+python3 scripts/validate.py
+# Result: all definitions valid — N warning(s) — PASS
 ```
-polyskills/
-├── CLAUDE.md                  # Claude Code root adapter
-├── AGENTS.md                  # Codex root adapter
-├── .windsurfrules              # Windsurf adapter
-├── .kiro/specs/polyskills.md  # Kiro adapter
-├── .gemini/instructions.md    # Gemini adapter
-├── .cursor/rules.md           # Cursor adapter
-│
-├── skills/
-│   ├── INDEX.md               # ← agents load this first
-│   ├── requirement-study/
-│   ├── implementation-sketch/
-│   ├── systems-architect/
-│   ├── research-analyst/
-│   ├── qa-validator/
-│   ├── security-guardian/
-│   ├── domain-expert/
-│   ├── repo-bootstrap/
-│   ├── poc-spike/
-│   └── context-handoff/
-│
-├── common-skills/             # shared reasoning patterns
-├── mcp-servers/               # MCP wiring guides
-├── adapters/                  # canonical adapter sources
-├── templates/                 # SKILL_TEMPLATE + doc templates
-└── docs/                      # principles, ADRs
-```
+
+Run before every commit. Zero errors required; warnings are acceptable.
 
 ---
 
