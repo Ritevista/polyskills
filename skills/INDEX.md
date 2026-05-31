@@ -13,7 +13,9 @@
 | synthesis | distil, synthesise, consolidate, gap signal, multi-source, session notes contradict, what's missing | skills/synthesis/SKILL.md |
 | handoff | handoff, capture state, session ending, pass to agent, lose context, resume later, continuation | skills/handoff/SKILL.md |
 | interviewing | interview questions, candidate-specific questions, interview plan, scorecard, answer signals, interview feedback, calibrate interviewers, probe candidate profile | skills/interviewing/SKILL.md |
+| skillcraft | create skill, review skill, classify capability, skill or agent, migrate old agent, trigger evals, overlap check, refactor definitions, six-layer format, skill design | skills/skillcraft/SKILL.md |
+| steering | STEERING.md, AGENTS.md, CLAUDE.md, steering review, steering design, instruction precedence, testbed steering, local rules, steering anti-patterns, resolve steering conflict | skills/steering/SKILL.md |
 
 ## Ceiling
 
-Maximum 10 skills. Current: 3. Update ADR-005 before exceeding 10.
+Maximum 10 skills. Current: 5. Update ADR-005 before exceeding 10.

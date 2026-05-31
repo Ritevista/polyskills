@@ -1,0 +1,27 @@
+{
+  "skill": "steering",
+  "should_trigger": [
+    "Review this STEERING.md for gaps and contradictions.",
+    "Create repo steering for this agentic engineering project.",
+    "How should AGENTS.md, CLAUDE.md, and local testbed notes interact?",
+    "Define steering for a working directory that jumps between repos and testbeds.",
+    "Turn these ad-hoc session instructions into scoped steering files.",
+    "There are three instruction files loaded and they conflict — resolve the precedence.",
+    "Write testbed steering that prevents destructive operations without explicit approval.",
+    "This STEERING.md has grown to 300 lines — review it for anti-patterns.",
+    "Create a CLAUDE.local.md for this branch-specific task context.",
+    "Document the authority boundary rules for the Operator agent in its AGENT.md."
+  ],
+  "should_not_trigger": [
+    "Write the actual handbook chapter on observability.",
+    "Debug this remote host that is not responding.",
+    "Create interview questions for the principal engineer role.",
+    "Review this pull request.",
+    "Summarise these meeting notes.",
+    "Create a new skill for synthesis.",
+    "Run the deployment pipeline.",
+    "Migrate this old skill into the six-layer format.",
+    "What is the hire recommendation for this candidate?",
+    "Distil these session notes into a gap signal."
+  ]
+}
