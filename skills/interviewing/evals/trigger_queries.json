@@ -1,0 +1,25 @@
+{
+  "skill": "interviewing",
+  "should_trigger": [
+    "Here is the JD and the candidate's resume — prepare interview questions.",
+    "Generate a scorecard from these interview notes for the senior backend role.",
+    "Create strong and weak answer signals for these Kubernetes architect questions.",
+    "Compare feedback from two interviewers for this candidate and surface any conflicts.",
+    "Build a 60-minute interview plan from this job description and candidate profile.",
+    "The candidate's resume mentions 5 years of distributed systems experience — generate targeted probe questions.",
+    "Turn my interview notes into structured evidence-backed feedback.",
+    "I need candidate-specific questions based on the gaps I see in this LinkedIn profile vs. the JD.",
+    "Generate a question bank for a principal engineer interview grouped by competency.",
+    "We have three scorecards for the same candidate — run calibration and tell me where interviewers disagree."
+  ],
+  "should_not_trigger": [
+    "Schedule an interview with Rahul tomorrow at 3pm.",
+    "Write a rejection email for the candidate we passed on.",
+    "Give me generic Java coding questions.",
+    "Update the ATS status for this candidate to rejected.",
+    "Rank candidates by age and salary expectations.",
+    "What are some common interview questions for software engineers?",
+    "Send calendar invites for next week's interview panel.",
+    "Is this candidate legally allowed to work in the UK?"
+  ]
+}
