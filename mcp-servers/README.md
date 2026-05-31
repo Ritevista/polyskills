@@ -12,7 +12,7 @@ via `metadata.mcp-required` and let the MCP provide it.
 | GitLab | gitlab skill — MRs, pipelines, reviews | ❌ Not wired | Skill pending |
 | Gmail | Mail operations | ❌ Not wired | Skill pending |
 | Google Calendar | Scheduling | ❌ Not wired | Skill pending |
-| Web Search | Research agents and skills | ❌ Not wired | Agent pending |
+| Web Search | Research and evidence-gathering skills | ❌ Not wired | Skill pending |
 | Filesystem | Local doc ingestion | ❌ Not wired | — |
 
 ## Wiring an MCP
