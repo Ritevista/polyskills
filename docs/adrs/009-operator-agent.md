@@ -19,9 +19,9 @@ Phoenix fails tests 1 and 2 for external system interaction: it is not permitted
 
 ## Decision
 
-**Operator is the candidate second agent.**
+**Operator is proposed as the candidate second agent.**
 
-Operator is accepted in principle. Its AGENT.md will be authored via phoenix when the use case is confirmed active. It is listed as a candidate in STEERING.md and INDEX.md until then.
+Its AGENT.md will be created via phoenix once the use case is confirmed active in at least one real session. Until then it is listed as a candidate in STEERING.md only — it does not appear in `agents/INDEX.md` and is not spawnable.
 
 ### Authority boundary
 
@@ -58,6 +58,6 @@ The safety level must be stated explicitly by the caller. If unspecified, Operat
 
 ## Alternatives Considered
 
-- **No second agent — MCP only**: MCP gives the host agent system access directly, so Operator is technically redundant. Rejected because it removes the explicit safety boundary and mixes operational context into the main conversation.
+- **No second agent — MCP only**: Rejected for two reasons. (1) Context contamination — environment investigation produces high-volume noisy output (log dumps, kubectl walls, config dumps) that degrades the main conversation context when run inline. (2) Auditable safety model — Operator's authority boundary lives in a committed, reviewed AGENT.md. MCP permissions live in per-machine tool config that is not repo-versioned and cannot be diffed or code-reviewed. The explicit agent definition is the safer, more maintainable boundary.
 - **Operator as a skill family**: Skills are reasoning patterns. A skill cannot own tool access or enforce a safety model. Rejected.
-- **Operator as a sub-agent**: Sub-agents are atomic and spawned by parents. Operator is multi-step, user-spawnable, and has its own authority model. Rejected.
+- **Operator as a sub-agent**: Operator's intended scope — multi-step investigation, its own safety model, user-initiated invocation — is incompatible with the sub-agent contract, which requires atomic scope and parent-only invocation. A sub-agent cannot own a safety model or be user-spawnable by design. Rejected.

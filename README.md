@@ -35,11 +35,12 @@ Skills are added via phoenix as real use cases emerge — not speculatively. Cei
 | Agent | When to spawn | AGENT.md |
 |-------|--------------|----------|
 | phoenix | Add/fix/sync anything in the polyskills library | [agents/phoenix/AGENT.md](agents/phoenix/AGENT.md) |
-| operator | *(candidate — ADR-009)* | Inspect real environments, collect evidence, diagnose failures | — |
 
 Phoenix owns the full maintenance loop: reads STEERING.md → produces definitions → writes files → runs validate.py → shows diff → commits on approval. It also updates its own definition when its job changes.
 
 Agents are rare. A new agent requires a distinct authority boundary, risk profile, or operating context — not just a workflow. See STEERING.md doctrine.
+
+**Candidate:** `operator` — inspect real environments, collect evidence, diagnose failures. Not yet created. See [ADR-009](docs/adrs/009-operator-agent.md).
 
 ---
 

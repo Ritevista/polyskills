@@ -32,7 +32,7 @@ Load skills/INDEX.md → match? → load SKILL.md → execute
     │
     └─ no match → load agents/INDEX.md → spawn worker agent
                       │
-                      └─ worker may spawn sub-agents from sub-agents/INDEX.md
+                      └─ worker may spawn sub-agents from sub-agents/INDEX.md (none yet)
 ```
 
 ---
@@ -53,7 +53,7 @@ An agent requires a distinct justification from this list:
 
 - **Authority boundary** — the agent is permitted to do things the main session agent is not (e.g., touch external systems)
 - **Risk profile** — the agent's blast radius is different enough to warrant explicit isolation and gating
-- **Operating context** — the agent needs a clean context free of the main conversation to do its job
+- **Operating context** — the agent's work would degrade the main conversation context (e.g., large system output volumes, long parallel investigation) AND the work has a fixed input/output contract suitable for clean handoff
 - **Delegation role** — the agent coordinates sub-agents or parallelizes work that benefits from isolation
 
 A workflow existing is not sufficient justification. Most capabilities should begin as skills and stay there unless one of the above is clearly true. Do not create `docsmith-agent`, `review-agent`, `tester-agent`, or `requirements-agent` merely because those workflows exist.
@@ -62,7 +62,7 @@ A workflow existing is not sufficient justification. Most capabilities should be
 
 Operator is justified because it has a distinct authority boundary and risk profile from phoenix: it interacts with real environments (shell, Kubernetes, testbeds, services) where mistakes are not reversible by editing a Markdown file.
 
-Operator owns: diagnostics, environment inspection, shell/Kubernetes/testbed interaction, and evidence collection.
+If accepted, Operator will own: diagnostics, environment inspection, shell/Kubernetes/testbed interaction, and evidence collection.
 
 Operator must not own polyskills governance. It does not modify `skills/`, `agents/`, `STEERING.md`, ADRs, or any other polyskills artifact.
 
@@ -81,7 +81,7 @@ The following capability families belong in skills unless they require a new aut
 - Research and evidence gathering
 - Root cause analysis
 - Communication and summarisation
-- Diagrams and architecture sketches
+- System and architecture design
 
 A skill that needs a tool capability declares it via `metadata.mcp-required` and degrades gracefully without it. It does not embed tool access or API calls in its procedure steps.
 
@@ -144,7 +144,12 @@ Load STEERING.md first, then the relevant INDEX file, then the matched definitio
 | Agent | Role | Key capability |
 |-------|------|---------------|
 | phoenix | library steward | skill/agent/steering lifecycle within this repo only |
-| operator | *(candidate — ADR-009)* | environment inspection, diagnostics, shell/k8s/testbed |
+
+## Agent Candidates (not yet spawnable)
+
+| Candidate | ADR | Intended role |
+|-----------|-----|--------------|
+| operator | ADR-009 (Proposed) | environment inspection, diagnostics, shell/k8s/testbed |
 
 ## Sub-Agents (0)
 
