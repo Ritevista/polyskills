@@ -11,18 +11,22 @@ A skill library that can only be extended by its authors scales poorly. Users an
 
 `phoenix` is a spawnable agent whose sole job is to extend the library:
 - Reads existing INDEX files to understand current state
-- Analyzes gap signals (distiller output, session notes, or plain descriptions)
+- Analyzes gap signals from session notes or plain descriptions
 - Determines the correct type: skill | agent | sub-agent | common-skill
 - Checks for overlap with existing definitions
 - Produces a properly formatted new definition using `templates/` as the source
-- **Returns a proposal for review — never writes files directly**
+- Writes proposed file changes to the working branch
+- Updates INDEX files, STEERING.md, and ADRs when needed
+- Runs validation before presenting the change
+- Shows the diff and summary before any commit
+- Commits only after explicit human approval
 
 The phoenix agent is the only path for adding new definitions. This creates a consistent, auditable extension mechanism.
 
 ## Rationale
 
 - Library conventions (six layers, frontmatter format, ceiling rules) are encoded in phoenix's process — every new definition inherits them
-- "Never write directly" rule ensures human review before library changes
+- The write → validate → show diff → approve → commit loop keeps changes reviewable while still allowing phoenix to do the mechanical work
 - Using phoenix to build skills (rather than writing them by hand) bootstraps the library with consistent quality
 - Phoenix itself uses the library's templates, so it demonstrates the format it enforces
 
@@ -36,3 +40,4 @@ The phoenix agent is the only path for adding new definitions. This creates a co
 
 - **Manual authoring with a style guide** — lower barrier but inconsistent; conventions drift
 - **Script-based generator** — deterministic but can't reason about overlap or type classification
+- **Text-only proposals without file edits** — avoids branch changes but causes copy-paste drift and prevents validation; rejected in favor of writing to a branch, validating, and gating before commit
