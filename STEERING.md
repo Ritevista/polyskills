@@ -155,7 +155,7 @@ Load STEERING.md first, then the relevant INDEX file, then the matched definitio
 
 None yet. Added as parent agents need them — not speculatively.
 
-## Skills (2 of 10)
+## Skills (3 of 10)
 
 | Skill | Purpose |
 |-------|---------|
