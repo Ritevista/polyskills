@@ -184,7 +184,7 @@ _None currently._
 | GitLab | ❌ | gitlab skill (MRs, pipelines, reviews) |
 | Gmail | ❌ | mail operations |
 | Google Calendar | ❌ | scheduling |
-| Web Search | ❌ | research agents and skills |
+| Web Search | ❌ | research and evidence-gathering skills |
 | Filesystem | ❌ | local doc ingestion |
 
 ## Key Design Decisions (ADRs)
