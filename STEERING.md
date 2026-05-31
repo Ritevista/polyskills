@@ -129,7 +129,7 @@ Load STEERING.md first, then the relevant INDEX file, then the matched definitio
 
 | Layer | Count | Ceiling | Status |
 |-------|-------|---------|--------|
-| skills/ | 2 | 10 | ✅ synthesis, handoff |
+| skills/ | 3 | 10 | ✅ synthesis, handoff, interviewing |
 | agents/ | 1 | 6 | ✅ phoenix (operator: candidate, see ADR-009) |
 | sub-agents/ | 0 | none | ⏳ Added when a parent agent needs them |
 | common-skills/ | 3 | none | ✅ Complete |
@@ -155,12 +155,13 @@ Load STEERING.md first, then the relevant INDEX file, then the matched definitio
 
 None yet. Added as parent agents need them — not speculatively.
 
-## Skills (2 of 10)
+## Skills (3 of 10)
 
 | Skill | Purpose |
 |-------|---------|
 | `synthesis` | Distil messy multi-source input into a clear finding with confidence rating |
 | `handoff` | Capture session state for resumption by next session or agent |
+| `interviewing` | Prepare and evaluate interviews — questions, answer signals, scorecards, feedback, calibration |
 
 ## Active Work
 

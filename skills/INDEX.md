@@ -12,7 +12,8 @@
 |-------|---------------------------|---------------|
 | synthesis | distil, synthesise, consolidate, gap signal, multi-source, session notes contradict, what's missing | skills/synthesis/SKILL.md |
 | handoff | handoff, capture state, session ending, pass to agent, lose context, resume later, continuation | skills/handoff/SKILL.md |
+| interviewing | interview questions, candidate-specific questions, interview plan, scorecard, answer signals, interview feedback, calibrate interviewers, probe candidate profile | skills/interviewing/SKILL.md |
 
 ## Ceiling
 
-Maximum 10 skills. Current: 2. Update ADR-005 before exceeding 10.
+Maximum 10 skills. Current: 3. Update ADR-005 before exceeding 10.
