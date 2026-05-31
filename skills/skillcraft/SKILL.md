@@ -14,7 +14,7 @@ user-invocable: true
 Use this skill when the work is about the design, quality, or structure of skill-library definitions — not about executing the capability those definitions describe.
 
 **Use when:**
-- Creating a new skill, agent, sub-agent, or common-skill definition
+- Designing a new skill, agent, sub-agent, or common-skill definition
 - Reviewing an existing definition for clarity, routing quality, or format compliance
 - Deciding whether a capability belongs in a skill, agent, sub-agent, common-skill, MCP, steering rule, or plain documentation
 - Checking a definition for overlap with existing skills
@@ -69,15 +69,15 @@ Use this skill when the work is about the design, quality, or structure of skill
 
 | Mode | Output |
 |------|--------|
-| `classify` | Classification decision with rationale (inline) |
-| `create` | Complete SKILL.md or AGENT.md in six-layer format (inline or file) |
+| `classify` | Classification decision with rationale |
+| `create` | Complete draft SKILL.md or AGENT.md in six-layer format |
 | `review` | Structured findings: layer-by-layer assessment, issue list, recommended fixes |
-| `refactor` | Revised definition(s) with change rationale |
-| `migrate` | Six-layer SKILL.md converted from old format, with migration notes |
-| `evals` | `trigger_queries.json` with ≥8 should-trigger and ≥8 should-not-trigger entries |
+| `refactor` | Refactor proposal with revised definition draft(s) and required repository updates |
+| `migrate` | Six-layer definition draft converted from old format, with migration notes |
+| `evals` | Draft `trigger_queries.json` with ≥8 should-trigger and ≥8 should-not-trigger entries |
 
 **Success criteria:**
-- Every output definition passes `validate.py` with zero errors
+- Every output definition is structured to pass `validate.py` with zero errors once written by the authorized maintainer/agent
 - Descriptions are under 200 characters and written as routing logic
 - No definition embeds tool access or API calls
 - Overlap with existing skills is explicitly checked and addressed
@@ -85,7 +85,7 @@ Use this skill when the work is about the design, quality, or structure of skill
 
 ## Reasoning
 
-Skillcraft is the meta-skill: it designs the tools that run the library. The judgment calls here are harder than they look because the failure modes are architectural, not just stylistic.
+Skillcraft is the meta-skill: it designs the definitions that shape the library. The judgment calls here are harder than they look because the failure modes are architectural, not just stylistic.
 
 **A capability existing does not justify a new agent.** The classification test is not "can this be an agent?" — almost anything can be an agent. The test is "does this NEED a distinct authority boundary, risk profile, operating context, or delegation role?" If none of those are true, it is a skill.
 
@@ -98,6 +98,8 @@ Skillcraft is the meta-skill: it designs the tools that run the library. The jud
 **Trigger quality matters more than clever naming.** A perfectly named skill that never triggers, or triggers on the wrong input, has zero value. The description and `should_trigger` / `should_not_trigger` evals are the most important quality signals. Write descriptions as routing logic, not marketing copy. Near-miss negatives are more valuable than obviously irrelevant examples.
 
 **Prefer merging overlapping skills over adding another skill.** Before creating a new skill, check whether the trigger surface overlaps with an existing one. Overlap is the primary failure mode of skill libraries. If two skills would activate on the same input, merge them or sharpen their boundaries.
+
+**Skillcraft does not own repository mutation authority.** It can draft definitions, review definitions, and propose exact repository updates. Phoenix or the human maintainer owns file writes, validation, index updates, and commits.
 
 **The most common mistake** in `create` mode is writing a skill that is really just a procedure list without routing discipline. A skill without clear "do not use when" cases will be activated indiscriminately. The routing layer is not a formality — it is the most important layer.
 
@@ -123,9 +125,10 @@ Skillcraft is the meta-skill: it designs the tools that run the library. The jud
 4. Apply ADR-008 naming: single action-noun for skills, role-noun (-er form) for agents, [domain]-[role]er for sub-agents.
 5. Draft the frontmatter: name, description (≤200 chars as routing logic), metadata.
 6. Write all six layers in order: Routing, Contract, Reasoning, Procedure, Edge Cases, Quality Gates.
-7. Write `evals/trigger_queries.json` with ≥8 should-trigger and ≥8 should-not-trigger entries. Near-miss negatives first.
+7. Draft `evals/trigger_queries.json` with ≥8 should-trigger and ≥8 should-not-trigger entries. Near-miss negatives first.
 8. Verify the description answers: when to use, when NOT to use, what the output is.
-9. Return the complete definition and flag any sections that need domain-specific input from the caller.
+9. Return the complete draft definition and flag any sections that need domain-specific input from the caller.
+10. If repository files must change, list the required updates; do not perform them from this skill.
 
 ### review mode
 1. Load the definition. Identify which skill/agent it is and its intended purpose.
@@ -142,21 +145,23 @@ Skillcraft is the meta-skill: it designs the tools that run the library. The jud
 
 ### refactor mode
 1. State the reason for refactoring: overlap, scope creep, naming violation, format drift, or retirement.
-2. If merging: identify the primary skill, migrate unique content from the secondary, update routing to cover both former trigger surfaces, update INDEX.md entries.
-3. If splitting: define the boundary between the two new skills, ensure no trigger surface overlap, create separate definitions.
-4. If renaming: apply ADR-008, update all cross-references in INDEX.md, STEERING.md, and any skill that references the old name.
-5. If retiring: confirm no active INDEX.md entries point to it, then remove the directory and update counts.
-6. Run `review` mode on the result before marking complete.
+2. If merging: identify the primary skill, migrate unique content from the secondary, and propose routing updates that cover both former trigger surfaces.
+3. If splitting: define the boundary between the two new skills and ensure no trigger surface overlap.
+4. If renaming: apply ADR-008 and list all cross-references that must be updated in INDEX.md, STEERING.md, and any skill that references the old name.
+5. If retiring: confirm no active INDEX.md entries should point to it, then list the directory and count updates required.
+6. Run `review` mode on the proposed result before marking complete.
+7. Return a patch plan; do not mutate repository files from this skill.
 
 ### migrate mode
 1. Parse the old definition: extract purpose, trigger conditions, steps, and any quality constraints.
 2. Map to the six-layer format: identify which old content maps to which layer.
 3. Identify what is missing from the old format: usually Reasoning and Edge Cases.
-4. Rewrite in six-layer format. Do not preserve formatting artifacts from the old format.
+4. Rewrite as a six-layer draft. Do not preserve formatting artifacts from the old format.
 5. Check for embedded tool access or API calls — move to `metadata.mcp-required`.
 6. Apply ADR-008 naming if the old name does not conform.
-7. Add `evals/trigger_queries.json` if not present.
+7. Draft `evals/trigger_queries.json` if not present.
 8. Produce a migration note: what was changed, what was added, what was intentionally dropped.
+9. List required repository updates for the authorized maintainer/agent to apply.
 
 ### evals mode
 1. Read the skill's Routing layer: extract the "use when" and "do not use when" conditions.
@@ -164,7 +169,7 @@ Skillcraft is the meta-skill: it designs the tools that run the library. The jud
 3. Write `should_not_trigger` entries: near-miss negatives first (skills most likely confused with this one), then obviously out-of-scope examples. ≥8 entries.
 4. Verify no `should_trigger` example could plausibly activate a different existing skill.
 5. Verify no `should_not_trigger` example is obviously irrelevant (those add no value).
-6. Return the complete `trigger_queries.json`.
+6. Return the complete draft `trigger_queries.json`.
 
 ## Edge Cases
 
@@ -180,6 +185,8 @@ Skillcraft is the meta-skill: it designs the tools that run the library. The jud
 
 **Evals are being written for a skill that doesn't exist yet:** Write the evals against the intended routing description, not an assumed SKILL.md. Flag that the evals should be validated once the full skill is written.
 
+**The user asks skillcraft to update files directly:** Return the exact patch plan and identify which authorized maintainer/agent should apply it. Skillcraft drafts and reviews; it does not own file mutation authority.
+
 ## Quality Gates
 
 Before delivering any output:
@@ -191,6 +198,7 @@ Before delivering any output:
 - [ ] Naming follows ADR-008 (single action-noun for skills; role-noun for agents)
 - [ ] All six layers are present and non-empty
 - [ ] Evals contain ≥8 should-trigger and ≥8 should-not-trigger with near-miss negatives present
-- [ ] If new definition: `validate.py` would pass with zero errors
-- [ ] If affecting counts: INDEX.md and STEERING.md are updated
+- [ ] If new definition: the draft is structured so `validate.py` should pass with zero errors once written
+- [ ] If affecting counts: INDEX.md and STEERING.md updates are listed in the patch plan
 - [ ] No new agent or sub-agent created speculatively
+- [ ] Output clearly separates draft content from repository mutation instructions
