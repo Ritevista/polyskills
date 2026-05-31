@@ -29,13 +29,13 @@ Ceilings are enforced by the validator (warning) and by the INDEX.md rule:
 - **Harder**: adding a genuinely new skill requires justifying it against the ceiling
 - **Watch for**: ceiling being raised without documenting why — update this ADR when raised
 
-## Current counts (2026-05-30)
+## Current counts (2026-05-31)
 
 | Layer | Count | Ceiling |
 |-------|-------|---------|
-| skills/ | 0 (in progress) | 10 |
-| agents/ | 6 | 6 |
-| sub-agents/ | 4 | none |
+| skills/ | 2 | 10 |
+| agents/ | 1 (operator: candidate) | 6 |
+| sub-agents/ | 0 | none |
 | common-skills/ | 3 | none |
 
 ## Alternatives Considered

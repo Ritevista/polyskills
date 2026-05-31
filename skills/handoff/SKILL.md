@@ -3,8 +3,8 @@ name: handoff
 description: "Captures session state for resumption. Use when: pausing mid-task, switching agents, or context is about to be lost. Not for: completed work or permanent project docs."
 metadata:
   version: "1.0.0"
+  mcp-required: []
 user-invocable: true
-allowed-tools: Read, Write, Bash
 ---
 
 # handoff

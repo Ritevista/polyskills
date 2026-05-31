@@ -1,4 +1,4 @@
-# ADR-007: Curator as Library Self-Extension Mechanism
+# ADR-007: Phoenix as Library Self-Extension Mechanism
 
 **Status**: Accepted
 **Date**: 2026-05-30
@@ -24,7 +24,7 @@ The phoenix agent is the only path for adding new definitions. This creates a co
 - Library conventions (six layers, frontmatter format, ceiling rules) are encoded in phoenix's process — every new definition inherits them
 - "Never write directly" rule ensures human review before library changes
 - Using phoenix to build skills (rather than writing them by hand) bootstraps the library with consistent quality
-- Curator itself uses the library's templates, so it demonstrates the format it enforces
+- Phoenix itself uses the library's templates, so it demonstrates the format it enforces
 
 ## Consequences
 

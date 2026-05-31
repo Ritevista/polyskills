@@ -2,7 +2,7 @@
 name: confidence-rating
 type: common-skill
 version: "1.0.0"
-used-by: [researcher, sme, distiller, critic]
+used-by: [all agents, synthesis skill]
 ---
 
 # Confidence Rating
