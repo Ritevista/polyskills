@@ -14,20 +14,19 @@ You have access to a skill library at skills/INDEX.md.
 3. Load skills/<name>/SKILL.md and follow its Process steps.
 ```
 
-## Sub-Agent Spawning in Amp
+## Agent Spawning in Amp
 
 Amp spawns agents on-demand with inline prompts. Use the agent definitions in
 `agents/<name>/AGENT.md` as the briefing template:
 
 ```
-Spawn a researcher agent:
-  Task: [query]
-  Scope: [what's in/out]
-  Output format: structured report with confidence ratings
-  See full spec: agents/researcher/AGENT.md
+Spawn the phoenix agent:
+  Task: [add skill / fix agent / sync INDEX / update STEERING]
+  Scope: polyskills repo only
+  See full spec: agents/phoenix/AGENT.md
 ```
 
-Available agents: researcher, critic, sme, scout, distiller
+Available agents: phoenix
 
 ## No Config File
 

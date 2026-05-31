@@ -3,8 +3,8 @@ name: synthesis
 description: "Distils any messy multi-source input into a clear finding. Use when: notes, docs, feedback, or mixed sources need consolidating. Not for: single clear input, live research, or permanent docs."
 metadata:
   version: "1.0.0"
+  mcp-required: []
 user-invocable: true
-allowed-tools: Read, Write, Bash
 ---
 
 # synthesis

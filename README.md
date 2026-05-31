@@ -38,6 +38,10 @@ Skills are added via phoenix as real use cases emerge — not speculatively. Cei
 
 Phoenix owns the full maintenance loop: reads STEERING.md → produces definitions → writes files → runs validate.py → shows diff → commits on approval. It also updates its own definition when its job changes.
 
+Agents are rare. A new agent requires a distinct authority boundary, risk profile, or operating context — not just a workflow. See STEERING.md doctrine.
+
+**Candidate:** `operator` — inspect real environments, collect evidence, diagnose failures. Not yet created. See [ADR-009](docs/adrs/009-operator-agent.md).
+
 ---
 
 ## Supported Platforms
@@ -48,7 +52,7 @@ Phoenix owns the full maintenance loop: reads STEERING.md → produces definitio
 | OpenAI Codex | `AGENTS.md` |
 | Gemini CLI | `.gemini/agents/` |
 | Cursor | `.cursor/agents/` |
-| Kiro | `adapters/kiro/` |
+| Kiro | `adapters/kiro/` *(adapter pending)* |
 | Cline | `.clinerules` |
 | Amp | `adapters/amp/USAGE.md` |
 
@@ -82,7 +86,7 @@ polyskills/
 ├── common-skills/               # confidence-rating, output-formatting, quality-checklist
 ├── templates/                   # SKILL_TEMPLATE, AGENT_TEMPLATE, SUB_AGENT_TEMPLATE
 ├── docs/
-│   ├── adrs/                    # 8 ADRs covering architecture decisions
+│   ├── adrs/                    # 9 ADRs covering architecture decisions
 │   ├── guides/                  # skill-writing-guide, steering-guide
 │   └── specs/                   # skill and agent format specs
 ├── scripts/validate.py          # CI validator

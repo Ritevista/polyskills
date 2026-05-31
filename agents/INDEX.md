@@ -1,10 +1,12 @@
 # Agents Index
 
 <!-- AGENT ROUTING
-     Agents are user-spawnable workers with isolated context and clean I/O.
-     Spawn when: task is parallelizable, benefits from fresh context,
-     or has a fixed input/output contract.
-     Stay inline (use a skill) when: task is iterative, collaborative, or short.
+     Agents are user-spawnable workers with isolated context, explicit authority boundaries,
+     and clean input/output contracts.
+     Spawn only when: the task has a distinct authority boundary, risk profile,
+     operating context, or delegation role.
+     Stay inline (use a skill) when: the task is a reusable workflow, reasoning pattern,
+     authoring/review activity, or short collaborative task.
 -->
 
 | Agent | Trigger | Sub-agents it uses | MCP | AGENT.md |
