@@ -1,0 +1,27 @@
+{
+  "skill": "skillcraft",
+  "should_trigger": [
+    "Turn this old interview-agent into a Polyskills skill.",
+    "Review this SKILL.md for overlap and trigger quality.",
+    "Should this capability be a skill, an agent, or a sub-agent?",
+    "Create trigger evals for this new skill.",
+    "Migrate these Claude prompts into the six-layer skill format.",
+    "Check whether this skill's description is routing logic or marketing copy.",
+    "I have two skills with overlapping triggers — help me merge or sharpen them.",
+    "Review this Phoenix proposal before I approve it.",
+    "Generate a question-bank skill — but first classify whether it should be a skill or part of interviewing.",
+    "This agent definition is from an old repo — convert it to the current format."
+  ],
+  "should_not_trigger": [
+    "Prepare interview questions for this candidate.",
+    "Review this pull request for bugs.",
+    "Write a chapter section for the engineering handbook.",
+    "Debug this Kubernetes pod that is crashing.",
+    "Summarise these meeting notes.",
+    "Create a STEERING.md for this new repository.",
+    "Synthesise these research sources into a single finding.",
+    "Schedule an interview with the candidate tomorrow.",
+    "Run validate.py and tell me what is broken.",
+    "Write the handoff notes for this session."
+  ]
+}
