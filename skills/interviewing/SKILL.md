@@ -91,7 +91,7 @@ This skill transforms structured inputs into structured judgment aids. The human
 
 **Evidence before inference.** If a claim comes from the candidate's profile, cite it. If it is inferred from a gap or pattern, mark it explicitly: "Inferred — not directly stated." Never present an inference as a fact.
 
-**Role-relevant criteria only.** Evaluation must be grounded in the job profile and competency rubric. Observations about a candidate's manner, tone, or cultural fit are only valid as evidence if they map to an explicit, role-relevant criterion. Do not generate evaluation criteria that are not present in the JD or rubric.
+**Role-relevant criteria only.** Evaluation must be grounded in the job profile and competency rubric. Observations about a candidate's manner, tone, or ways of working are only valid as evidence if they map to an explicit, role-relevant criterion. Do not generate evaluation criteria that are not present in the JD or rubric.
 
 **Weak signals need a follow-up, not a verdict.** A single weak answer is not a hire/no-hire signal — it is an invitation to probe further. Mark it as "warrants follow-up" and generate a probe. Reserve the scorecard for aggregated evidence across the full interview.
 
@@ -106,7 +106,7 @@ This skill transforms structured inputs into structured judgment aids. The human
 ### plan mode
 1. Parse the JD: extract role scope, key responsibilities, required competencies, and level expectations.
 2. Parse the candidate profile: note claims, experience level, and any gaps against the JD.
-3. Define interview sections (e.g., intro, technical depth, behavioural, culture, candidate questions).
+3. Define interview sections (e.g., intro, technical depth, behavioural, collaboration/ways-of-working, candidate questions).
 4. Allocate time to each section based on `time-box` (default: 60 min if unspecified).
 5. Assign competencies to sections so each required competency is covered at least once.
 6. Flag any JD requirement that cannot be assessed in the available time.
